@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5dce8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="F90 كارد للشحن">
+<meta name="application-name" content="F90 كارد للشحن">
+<meta name="description" content="تطبيق إدارة عمليات الشحن والتارجت لوكالة F90 CARD">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>F90 كارد للشحن</title>
+<style>
+:root{--bg:#fff8fb;--surface:#fff;--surface2:#fff0f6;--text:#30232c;--muted:#806d79;--line:#f0d7e3;--accent:#e58bb5;--accent2:#c65e91;--accentText:#fff;--good:#218b68;--bad:#c44f62;--shadow:0 10px 28px #a85f8212;--radius:19px}
+body[data-theme="blue"]{--bg:#f5faff;--surface:#fff;--surface2:#eaf5ff;--text:#203142;--muted:#687f91;--line:#d7e9f7;--accent:#83c5ef;--accent2:#4e9ed0;--accentText:#123047;--good:#23876c;--bad:#c44f62;--shadow:0 10px 28px #4e91b512}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 90% -10%,var(--surface2),transparent 48%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;min-height:100vh;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:1060px;margin:auto;padding:12px 13px 30px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 2px 14px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brandLogo{width:53px;height:53px;object-fit:contain;background:#08080b;border-radius:15px;padding:3px;box-shadow:var(--shadow);flex:none}
+.brandText{min-width:0}.brandText h1{font-size:clamp(17px,4vw,23px);margin:0 0 4px;white-space:nowrap}.brandText p{font-size:11px;color:var(--muted);margin:0}
+.miniBadge{width:43px;height:43px;object-fit:cover;border-radius:13px;border:1px solid var(--line);flex:none}
+.topActions{display:flex;gap:7px;align-items:center}.iconBtn{width:39px;height:39px;border:1px solid var(--line);border-radius:13px;background:var(--surface);color:var(--text);font-size:17px}
+.welcome{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 18px;border-radius:var(--radius);background:linear-gradient(120deg,var(--surface2),var(--surface));border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:13px}
+.welcome strong{font-size:17px}.welcome p{margin:5px 0 0;font-size:12px;color:var(--muted);line-height:1.6}.welcomeMark{font-size:27px;opacity:.8}
+nav{display:flex;gap:7px;overflow-x:auto;padding:3px 1px 13px;scrollbar-width:none;position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px)}
+nav::-webkit-scrollbar{display:none}nav button{white-space:nowrap;padding:10px 13px;border-radius:13px;border:1px solid var(--line);background:var(--surface);color:var(--muted);font-size:12px}
+nav button.active{background:var(--accent);border-color:var(--accent);color:var(--accentText);font-weight:bold;box-shadow:0 5px 14px color-mix(in srgb,var(--accent) 28%,transparent)}
+.page{display:none}.page.active{display:block}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:13px;box-shadow:var(--shadow)}
+h2{font-size:16px;margin:0 0 14px}.muted{color:var(--muted)}.small{font-size:11px;color:var(--muted);line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+input,select,textarea{width:100%;min-width:0;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--text);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent2);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+input[readonly]{opacity:.8}
+.field{min-width:0}.field.full{grid-column:1/-1}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.btn{border:1px solid var(--line);border-radius:12px;padding:11px 14px;background:var(--surface2);color:var(--text);font-size:13px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accentText);font-weight:bold}
+.btn.danger{color:var(--bad);background:transparent;border-color:color-mix(in srgb,var(--bad) 35%,var(--line))}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.stat{border:1px solid var(--line);background:linear-gradient(145deg,var(--surface),var(--surface2));border-radius:15px;padding:13px;min-width:0}
+.stat small{display:block;font-size:11px;color:var(--muted);margin-bottom:7px}.stat b{font-size:19px;overflow-wrap:anywhere}
+.currencyCard{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px;background:var(--bg)}
+.currencyCard strong{display:block;margin-bottom:9px;color:var(--accent2);font-size:13px}
+.currencyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.currencyGrid span{font-size:11px;color:var(--muted);line-height:1.6}.currencyGrid b{display:block;color:var(--text);font-size:13px;overflow-wrap:anywhere}
+.preview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:13px}
+.preview div{border-radius:13px;padding:11px;background:var(--surface2);border:1px solid var(--line);min-width:0}
+.preview small{font-size:10px;color:var(--muted);display:block;margin-bottom:7px}.preview b{font-size:14px;overflow-wrap:anywhere}
+.good{color:var(--good)!important}.bad{color:var(--bad)!important}
+.tableWrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px}
+table{width:100%;border-collapse:collapse;min-width:680px;font-size:12px}
+th,td{padding:11px 9px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+th{background:var(--surface2);color:var(--muted);font-weight:bold}tr:last-child td{border-bottom:0}
+.empty{text-align:center;color:var(--muted);padding:22px}
+.filterRow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filterRow>*{flex:1;min-width:135px}
+.methodNote{background:var(--surface2);border:1px dashed var(--accent);border-radius:12px;padding:10px;font-size:12px;color:var(--muted);margin-top:10px;line-height:1.7}
+.installBubble{position:fixed;bottom:calc(17px + env(safe-area-inset-bottom));left:15px;z-index:20;border:0;border-radius:30px;padding:12px 16px;background:var(--accent2);color:white;box-shadow:0 8px 25px #0002;font-weight:bold;display:flex;align-items:center;gap:8px}
+.installBubble[hidden]{display:none}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:12px}
+#toast{position:fixed;z-index:30;bottom:calc(76px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--text);color:var(--surface);border-radius:12px;padding:11px 16px;display:none;white-space:nowrap;font-size:12px;box-shadow:var(--shadow)}
+@media(min-width:720px){.app{padding:20px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.welcome{padding:20px 24px}.card{padding:19px}}
+@media(max-width:420px){.app{padding:9px}.brandLogo{width:45px;height:45px}.miniBadge{width:36px;height:36px}.brand{gap:7px}.brandText h1{font-size:15px}.brandText p{font-size:10px}.topActions{gap:4px}.iconBtn{width:35px;height:35px}.grid{gap:9px}.card{padding:13px}.preview{gap:5px}.preview div{padding:9px 7px}.preview b{font-size:12px}.currencyGrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body data-theme="pink">
+<div class="app">
+<header class="top">
+ <div class="brand">
+  <img class="brandLogo" src="icons/icon-192.png" alt="F90">
+  <div class="brandText"><h1>F90 كارد للشحن</h1><p>إدارة الشحن والتارجت والأرباح</p></div>
+  <img class="miniBadge" src="brand-small.jpg" alt="هوية الوكالة">
+ </div>
+ <div class="topActions">
+  <button class="iconBtn" id="themeToggle" title="تغيير الثيم" aria-label="تغيير الثيم">🎨</button>
+ </div>
+</header>
+
+<div class="welcome">
+ <div><strong>أهلاً بك في إدارة F90 CARD</strong><p>تابع عملياتك، أسعارك، وتفاصيل أرباحك من مكان واحد.</p></div>
+ <div class="welcomeMark">✦</div>
+</div>
+
+<nav>
+ <button class="active" data-page="home">الرئيسية</button>
+ <button data-page="new">＋ عملية جديدة</button>
+ <button data-page="records">سجل الشحن</button>
+ <button data-page="prices">الأسعار والدول</button>
+ <button data-page="backup">النسخ الاحتياطي</button>
+</nav>
+
+<section id="home" class="page active">
+ <div class="card">
+  <h2>ملخص إجمالي العمليات</h2>
+  <div class="stats">
+   <div class="stat"><small>عدد العمليات المحفوظة</small><b id="sumCount">0</b></div>
+   <div class="stat"><small>إجمالي الكوينز المشحونة</small><b id="sumCoins">0</b></div>
+   <div class="stat"><small>إجمالي مبالغ البيع</small><b id="sumSales">—</b></div>
+   <div class="stat"><small>إجمالي صافي الأرباح</small><b id="sumProfit">—</b></div>
+  </div>
+  <p class="small" style="margin:10px 0 0">المبالغ والأرباح تظهر منفصلة حسب عملة كل دولة، حتى لا تختلط العملات ببعضها.</p>
+ </div>
+ <div class="card"><h2>الإجماليات حسب العملة</h2><div id="currencyTotals"><div class="empty">لا توجد عمليات محفوظة حتى الآن.</div></div></div>
+ <div class="card"><h2>آخر العمليات المحفوظة</h2><div class="tableWrap"><table><thead><tr><th>التاريخ</th><th>الدولة</th><th>العميل</th><th>الكوينز</th><th>قيمة البيع</th><th>صافي الربح</th></tr></thead><tbody id="latestRows"></tbody></table></div></div>
+</section>
+
+<section id="new" class="page">
+ <div class="card">
+  <h2>إضافة عملية شحن أو تارجت</h2>
+  <div class="grid">
+   <div class="field"><label>الدولة</label><select id="txCountry"></select></div>
+   <div class="field"><label>نوع العملية</label><select id="txType"><option value="shipping">شحن</option><option value="target">شراء / سحب تارجت</option></select></div>
+   <div class="field"><label>رقم / ID العميل</label><input id="txCustomerId" placeholder="أدخل ID العميل"></div>
+   <div class="field"><label>اسم العميل (اختياري)</label><input id="txCustomerName" placeholder="اسم العميل"></div>
+   <div class="field"><label>طريقة الدفع أو الاستلام</label><select id="txMethod"></select></div>
+   <div class="field"><label>طريقة تحديد الكمية</label><select id="txMode"><option value="coins">عدد الكوينز</option><option value="money">مبلغ البيع بعملة الدولة</option></select></div>
+   <div class="field" id="coinsField"><label>عدد الكوينز</label><input id="txCoins" type="number" min="1" step="1" placeholder="مثال: 500000"></div>
+   <div class="field" id="moneyField" style="display:none"><label>مبلغ البيع</label><input id="txMoney" type="number" min="0.01" step="any" placeholder="أدخل المبلغ"></div>
+   <div class="field"><label>سعر الجملة للمليون</label><input id="txWholesale" type="number" min="0" step="any"></div>
+   <div class="field"><label>سعر البيع للمليون</label><input id="txRetail" type="number" min="0" step="any"></div>
+  </div>
+  <div class="methodNote" id="methodsHint"></div>
+  <div class="preview">
+   <div><small>قيمة البيع</small><b id="pvSale">—</b></div>
+   <div><small>تكلفة الجملة</small><b id="pvCost">—</b></div>
+   <div><small>صافي ربح العملية</small><b id="pvProfit" class="good">—</b></div>
+  </div>
+  <div class="field" style="margin-top:12px"><label>ملاحظات العملية (اختياري)</label><textarea id="txNotes" rows="2" placeholder="تفاصيل إضافية"></textarea></div>
+  <div class="btnrow"><button class="btn primary" id="saveTx">حفظ العملية وحساب الربح</button><button class="btn" id="clearTx">مسح الحقول</button></div>
+  <p class="small">عند الحفظ يتم تثبيت سعر الجملة والبيع المستخدمين في هذه العملية، حتى لو عدّلت الأسعار لاحقاً لا تتغير أرباح العمليات القديمة.</p>
+ </div>
+</section>
+
+<section id="records" class="page">
+ <div class="card">
+  <h2>جدول سجل الشحن والأرباح</h2>
+  <div class="filterRow"><select id="filterCountry"><option value="all">كل الدول</option></select><select id="filterType"><option value="all">كل العمليات</option><option value="shipping">شحن</option><option value="target">تارجت</option></select></div>
+  <div class="tableWrap"><table><thead><tr><th>التاريخ</th><th>الدولة</th><th>العميل / ID</th><th>النوع</th><th>الكوينز</th><th>سعر البيع / مليون</th><th>مبلغ البيع</th><th>التكلفة</th><th>الربح الصافي</th><th>الإيصال</th></tr></thead><tbody id="recordRows"></tbody></table></div>
+  <p class="small">كل سطر يمثل عملية مستقلة، والربح محسوب ومحفوظ لهذه العملية تحديداً.</p>
+ </div>
+</section>
+
+<section id="prices" class="page">
+ <div class="card">
+  <h2>إدارة أسعار كل دولة</h2>
+  <div class="grid">
+   <div class="field"><label>اختر الدولة</label><select id="priceCountry"></select></div>
+   <div class="field"><label>نوع الأسعار</label><select id="priceType"><option value="shipping">الشحن</option><option value="target">التارجت</option></select></div>
+   <div class="field"><label>سعر الجملة للمليون</label><input id="priceWholesale" type="number" min="0" step="any"></div>
+   <div class="field"><label>سعر البيع للمليون</label><input id="priceRetail" type="number" min="0" step="any"></div>
+  </div>
+  <div class="methodNote" id="priceHint"></div>
+  <div class="btnrow"><button class="btn primary" id="savePrice">حفظ أسعار الدولة</button><button class="btn" id="resetPrice">استعادة السعر الابتدائي</button></div>
+ </div>
+ <div class="card"><h2>جدول أسعار الدول</h2><div class="tableWrap"><table><thead><tr><th>الدولة</th><th>العملة</th><th>النوع</th><th>الجملة / مليون</th><th>البيع / مليون</th></tr></thead><tbody id="priceRows"></tbody></table></div></div>
+</section>
+
+<section id="backup" class="page">
+ <div class="card"><h2>حفظ واستعادة بياناتك</h2><p class="small">نزّل نسخة احتياطية تشمل سجل العمليات والأسعار. احتفظ بها في مكان آمن، واستوردها عند تغيير الهاتف أو المتصفح.</p>
+  <div class="btnrow"><button class="btn primary" id="exportBtn">تنزيل نسخة احتياطية</button><label class="btn" for="importFile" style="margin:0;cursor:pointer">استيراد نسخة</label><input id="importFile" type="file" accept="application/json" hidden></div>
+ </div>
+</section>
+<div class="footer">F90 CARD للشحن • للتواصل: +970568181910</div>
+</div>
+<button class="installBubble" id="installBtn" hidden>⬇ تثبيت F90 كارد</button>
+<div id="toast"></div>
+<script>
+const COUNTRIES=[
+{id:'eg',name:'مصر',flag:'🇪🇬',currency:'جنيه مصري',symbol:'جنيه',methods:['فودافون كاش'],sw:6200,sr:6350,tw:5300,tr:5300},
+{id:'ps',name:'فلسطين',flag:'🇵🇸',currency:'شيكل',symbol:'₪',methods:['بنك فلسطين','ريفلكت','إي براق'],sw:375,sr:385,tw:295,tr:295},
+{id:'dz',name:'الجزائر',flag:'🇩🇿',currency:'دينار جزائري',symbol:'دج',methods:['بريدي موب'],sw:29750,sr:31200,tw:21900,tr:21900},
+{id:'ma',name:'المغرب',flag:'🇲🇦',currency:'درهم مغربي',symbol:'درهم',methods:['بنك CIH'],sw:1200,sr:1260,tw:null,tr:null},
+{id:'sy',name:'سوريا',flag:'🇸🇾',currency:'دولار أمريكي',symbol:'$',methods:['شام كاش'],sw:110,sr:115,tw:100,tr:100},
+{id:'lb',name:'لبنان',flag:'🇱🇧',currency:'دولار أمريكي',symbol:'$',methods:['ويش موني'],sw:112,sr:115,tw:98,tr:98},
+{id:'om',name:'سلطنة عُمان',flag:'🇴🇲',currency:'ريال عُماني',symbol:'ر.ع',methods:['بنك مسقط'],sw:53,sr:55,tw:null,tr:null},
+{id:'ae',name:'الإمارات',flag:'🇦🇪',currency:'درهم إماراتي',symbol:'د.إ',methods:['مصرف أبوظبي الإسلامي'],sw:415,sr:435,tw:null,tr:null},
+{id:'iq',name:'العراق',flag:'🇮🇶',currency:'دينار عراقي',symbol:'د.ع',methods:['زين كاش'],sw:183000,sr:190000,tw:null,tr:null},
+{id:'all',name:'الحوالات لجميع الدول',flag:'🌐',currency:'دولار أمريكي',symbol:'$',methods:['مكاتب صندوق منطاد','Binance','USDT'],sw:113,sr:117,tw:null,tr:null}
+];
+const KEY='f90_card_shipping_v2';
+const $=id=>document.getElementById(id);
+let db=readDB();
+function blankDB(){return{prices:{},records:[]}}
+function readDB(){try{return JSON.parse(localStorage.getItem(KEY))||blankDB()}catch(e){return blankDB()}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
+function notify(s){let t=$('toast');t.textContent=s;t.style.display='block';clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>t.style.display='none',2400)}
+function fmt(n){return Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2})}
+function fmtCoins(n){return Math.round(Number(n)||0).toLocaleString('en-US')}
+function cash(n,c){return fmt(n)+' '+c.symbol}
+function country(id){return COUNTRIES.find(c=>c.id===id)||COUNTRIES[0]}
+function getPrice(c,type){let p=db.prices[c.id]?.[type];if(p)return p;return type==='shipping'?{w:c.sw,r:c.sr}:{w:c.tw,r:c.tr}}
+function setOptions(id,all=false){$(id).innerHTML=(all?'<option value="all">كل الدول</option>':'')+COUNTRIES.map(c=>`<option value="${c.id}">${c.flag} ${c.name}</option>`).join('')}
+function page(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));if(id==='home')renderHome();if(id==='records')renderRecords();if(id==='prices')renderPrices()}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>page(b.dataset.page));
+setOptions('txCountry');setOptions('priceCountry');setOptions('filterCountry',true);
+function loadTx(){let c=country($('txCountry').value),p=getPrice(c,$('txType').value);$('txWholesale').value=p.w??'';$('txRetail').value=p.r??'';$('txMethod').innerHTML=c.methods.map(m=>`<option>${m}</option>`).join('');$('methodsHint').textContent='طرق الدفع والاستلام لهذه الدولة: '+c.methods.join(' • ');preview()}
+function quantity(){if($('txMode').value==='coins')return Number($('txCoins').value)||0;let amount=Number($('txMoney').value)||0,retail=Number($('txRetail').value)||0;return retail>0?amount/retail*1000000:0}
+function preview(){let c=country($('txCountry').value),q=quantity(),w=Number($('txWholesale').value)||0,r=Number($('txRetail').value)||0,s=q*r/1e6,cost=q*w/1e6,p=s-cost;$('pvSale').textContent=q?cash(s,c):'—';$('pvCost').textContent=q?cash(cost,c):'—';$('pvProfit').textContent=q?cash(p,c):'—';$('pvProfit').className=p<0?'bad':'good'}
+$('txCountry').onchange=loadTx;$('txType').onchange=loadTx;
+['txCoins','txMoney','txWholesale','txRetail'].forEach(id=>$(id).addEventListener('input',preview));
+$('txMode').onchange=()=>{$('coinsField').style.display=$('txMode').value==='coins'?'block':'none';$('moneyField').style.display=$('txMode').value==='money'?'block':'none';preview()};
+$('saveTx').onclick=()=>{let c=country($('txCountry').value),q=quantity(),w=Number($('txWholesale').value),r=Number($('txRetail').value);if(!q||q<=0)return notify('أدخل عدد كوينز أو مبلغ صحيح');if(!r||r<=0||w<0||!Number.isFinite(w))return notify('أدخل أسعار الجملة والبيع بشكل صحيح');let id=$('txCustomerId').value.trim();if(!id)return notify('أدخل ID العميل');let sale=q*r/1e6,cost=q*w/1e6;db.records.unshift({id:Date.now().toString(),date:new Date().toISOString(),country:c.id,type:$('txType').value,customerId:id,customerName:$('txCustomerName').value.trim(),method:$('txMethod').value,coins:Math.round(q),wholesale:w,retail:r,sale,cost,profit:sale-cost,notes:$('txNotes').value.trim()});persist();['txCustomerId','txCustomerName','txCoins','txMoney','txNotes'].forEach(x=>$(x).value='');preview();renderHome();notify('تم حفظ العملية وحساب ربحها تلقائياً')};
+$('clearTx').onclick=()=>{['txCustomerId','txCustomerName','txCoins','txMoney','txNotes'].forEach(x=>$(x).value='');preview()};
+function aggregate(){let map={};db.records.forEach(r=>{let c=country(r.country),k=c.currency+'|'+c.symbol;map[k]??={currency:c.currency,symbol:c.symbol,sale:0,cost:0,profit:0,coins:0,count:0};let x=map[k];x.sale+=r.sale;x.cost+=r.cost;x.profit+=r.profit;x.coins+=r.coins;x.count++});return Object.values(map)}
+function renderHome(){let arr=aggregate(),count=db.records.length,coins=db.records.reduce((a,r)=>a+r.coins,0);$('sumCount').textContent=fmt(count);$('sumCoins').textContent=fmtCoins(coins);$('sumSales').textContent=arr.length?arr.map(x=>fmt(x.sale)+' '+x.symbol).join(' / '):'—';$('sumProfit').textContent=arr.length?arr.map(x=>fmt(x.profit)+' '+x.symbol).join(' / '):'—';$('currencyTotals').innerHTML=arr.map(x=>`<div class="currencyCard"><strong>${x.currency}</strong><div class="currencyGrid"><span>إجمالي البيع<b>${fmt(x.sale)} ${x.symbol}</b></span><span>إجمالي التكلفة<b>${fmt(x.cost)} ${x.symbol}</b></span><span>صافي الربح<b class="${x.profit<0?'bad':'good'}">${fmt(x.profit)} ${x.symbol}</b></span></div></div>`).join('')||'<div class="empty">لا توجد عمليات محفوظة حتى الآن.</div>';$('latestRows').innerHTML=db.records.slice(0,7).map(r=>{let c=country(r.country);return `<tr><td>${new Date(r.date).toLocaleDateString('ar')}</td><td>${c.flag} ${c.name}</td><td>${esc(r.customerId)}</td><td>${fmtCoins(r.coins)}</td><td>${cash(r.sale,c)}</td><td class="good">${cash(r.profit,c)}</td></tr>`}).join('')||'<tr><td colspan="6" class="empty">لا توجد عمليات بعد</td></tr>'}
+function esc(s){return String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+$('filterCountry').onchange=renderRecords;$('filterType').onchange=renderRecords;
+function renderRecords(){let rows=db.records.filter(r=>($('filterCountry').value==='all'||r.country===$('filterCountry').value)&&($('filterType').value==='all'||r.type===$('filterType').value));$('recordRows').innerHTML=rows.map(r=>{let c=country(r.country);return `<tr><td>${new Date(r.date).toLocaleString('ar')}</td><td>${c.flag} ${c.name}</td><td>${esc(r.customerName)}<br>${esc(r.customerId)}</td><td>${r.type==='shipping'?'شحن':'تارجت'}</td><td>${fmtCoins(r.coins)}</td><td>${fmt(r.retail)}</td><td>${cash(r.sale,c)}</td><td>${cash(r.cost,c)}</td><td class="${r.profit<0?'bad':'good'}">${cash(r.profit,c)}</td><td><button class="btn" onclick="shareReceipt('${r.id}')">واتساب</button> <button class="btn danger" onclick="removeRecord('${r.id}')">حذف</button></td></tr>`}).join('')||'<tr><td colspan="10" class="empty">لا توجد عمليات مطابقة</td></tr>'}
+window.removeRecord=id=>{if(!confirm('تأكيد حذف العملية؟'))return;db.records=db.records.filter(r=>r.id!==id);persist();renderRecords();renderHome();notify('تم حذف العملية')};
+window.shareReceipt=id=>{let r=db.records.find(x=>x.id===id),c=country(r.country);let lines=['F90 CARD للشحن','━━━━━━━━━━━━━━━━━━',`ملخص عملية ${r.type==='shipping'?'شحن':'شراء / سحب تارجت'}`,`الدولة: ${c.name}`,`اسم العميل: ${r.customerName||'غير محدد'}`,`ID العميل: ${r.customerId}`,`عدد الكوينز: ${fmtCoins(r.coins)}`,`سعر البيع للمليون: ${fmt(r.retail)} ${c.symbol}`,`إجمالي مبلغ الشحن: ${fmt(r.sale)} ${c.symbol}`,`تكلفة الجملة: ${fmt(r.cost)} ${c.symbol}`,`صافي الربح: ${fmt(r.profit)} ${c.symbol}`,`طريقة الدفع / الاستلام: ${r.method}`,`التاريخ: ${new Date(r.date).toLocaleString('ar')}`,r.notes?`ملاحظات: ${r.notes}`:'', '━━━━━━━━━━━━━━━━━━','للتواصل: +970568181910'];let text=lines.filter(Boolean).join('\n');let url='https://wa.me/?text='+encodeURIComponent(text);window.open(url,'_blank','noopener')};
+function loadPriceEditor(){let c=country($('priceCountry').value),p=getPrice(c,$('priceType').value);$('priceWholesale').value=p.w??'';$('priceRetail').value=p.r??'';$('priceHint').textContent=`العملة: ${c.currency} • طرق الدفع والاستلام: ${c.methods.join('، ')}`}
+$('priceCountry').onchange=loadPriceEditor;$('priceType').onchange=loadPriceEditor;
+$('savePrice').onclick=()=>{let c=country($('priceCountry').value),type=$('priceType').value,w=Number($('priceWholesale').value),r=Number($('priceRetail').value);if(!r||r<=0||!Number.isFinite(w)||w<0)return notify('أدخل أسعاراً صحيحة');db.prices[c.id]??={};db.prices[c.id][type]={w,r};persist();renderPrices();notify('تم حفظ أسعار الدولة')};
+$('resetPrice').onclick=()=>{if(!confirm('استعادة الأسعار الابتدائية لهذه الدولة؟'))return;let c=country($('priceCountry').value);if(db.prices[c.id])delete db.prices[c.id][$('priceType').value];persist();loadPriceEditor();renderPrices();notify('تمت استعادة الأسعار الابتدائية')};
+function renderPrices(){let out='';COUNTRIES.forEach(c=>['shipping','target'].forEach(t=>{let p=getPrice(c,t);out+=`<tr><td>${c.flag} ${c.name}</td><td>${c.currency}</td><td>${t==='shipping'?'شحن':'تارجت'}</td><td>${p.w==null?'—':fmt(p.w)}</td><td>${p.r==null?'—':fmt(p.r)}</td></tr>`}));$('priceRows').innerHTML=out}
+$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='F90-card-backup.json';a.click();URL.revokeObjectURL(url)};
+$('importFile').onchange=e=>{let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let x=JSON.parse(reader.result);if(!Array.isArray(x.records)||typeof x.prices!=='object')throw Error();if(!confirm('سيتم استبدال السجل والأسعار الحالية. متابعة؟'))return;db=x;persist();renderHome();renderRecords();renderPrices();notify('تم استيراد النسخة الاحتياطية')}catch(_){notify('ملف النسخة غير صالح')}};reader.readAsText(f);e.target.value=''};
+$('themeToggle').onclick=()=>{let next=document.body.dataset.theme==='pink'?'blue':'pink';document.body.dataset.theme=next;localStorage.setItem('f90_theme',next);document.querySelector('meta[name="theme-color"]').content=next==='pink'?'#f5dce8':'#eaf5ff'};
+let savedTheme=localStorage.getItem('f90_theme');if(savedTheme==='blue'){$('themeToggle').click()}
+loadTx();loadPriceEditor();renderHome();renderPrices();renderRecords();
+
+// PWA installation prompt: the bubble is shown only while installation is available.
+let installPrompt=null;const installButton=$('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;installButton.hidden=false});
+installButton.addEventListener('click',async()=>{if(!installPrompt){notify('لإضافة التطبيق استخدم قائمة المتصفح ثم تثبيت التطبيق');return}installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice && choice.outcome==='accepted'){installButton.hidden=true}installPrompt=null});
+window.addEventListener('appinstalled',()=>{installButton.hidden=true;notify('تم تثبيت F90 كارد للشحن')});
+if(window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true)installButton.hidden=true;
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
